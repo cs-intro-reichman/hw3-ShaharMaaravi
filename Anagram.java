@@ -2,10 +2,11 @@
 public class Anagram {
 	public static void main(String args[]) {
 		// Tests the isAnagram function.
-		System.out.println(isAnagram("silent","listen"));  // true
-		System.out.println(isAnagram("William Shakespeare","I am a weakish speller")); // true
-		System.out.println(isAnagram("Madam Curie","Radium came")); // true
-		System.out.println(isAnagram("Tom Marvolo Riddle","I am Lord Voldemort")); // true
+		// System.out.println(isAnagram("silent","listen"));  // true
+		// System.out.println(isAnagram("William Shakespeare","I am a weakish speller")); // true
+		// System.out.println(isAnagram("Madam Curie","Radium came")); // true
+		// System.out.println(isAnagram("Tom Marvolo Riddle","I am Lord Voldemort")); // true
+		System.out.println(isAnagram("William Shakespeare", "I am a weakish speller"));
 
 		// Tests the preProcess function.
 		System.out.println(preProcess("What? No way!!!"));
@@ -28,22 +29,50 @@ public class Anagram {
 
 	// Returns true if the two given strings are anagrams, false otherwise.
 	public static boolean isAnagram(String str1, String str2) {
-		// Replace the following statement with your code
-		return false;
+		String ph1 = preProcess(str1); 
+		String ph2  = preProcess(str2); 
+		int l1 = ph1.length(); 
+		int l2 = ph2.length(); 
+		if(l1 != l2){
+			return false;
+		}
+		for(int i = 0; i < l1; i++){ 
+			char indexA = ph1.charAt(i); 
+			boolean exs = false; 
+			for(int k = 0; k < l2; k++){ 
+				char indexB = ph2.charAt(k);
+				if(indexA == indexB){ 
+					exs = true; 
+					ph2 = ph2.substring(0, k) + ph2.substring(k + 1); 
+					break;
+				}
+			}
+			if (exs == false){ 
+				return false; 
+			}
+		}
+		return true;
 	}
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
 	// to lower-case, and all the other characters are deleted, except for spaces, which are left
 	// as is. For example, the string "What? No way!" becomes "whatnoway"
 	public static String preProcess(String str) {
-		// Replace the following statement with your code
-		return "";
+		String lowerCaseText = str.toLowerCase(); 
+		return lowerCaseText.replaceAll("[^a-zA-Z]", "");
 	} 
 	   
 	// Returns a random anagram of the given string. The random anagram consists of the same
 	// characters as the given string, re-arranged in a random order. 
 	public static String randomAnagram(String str) {
-		// Replace the following statement with your code
-		return "";
+		int l1 = str.length(); 
+		String results = ""; 
+		String tempStr = str;
+		for (int i = 0; i < l1; i++) { 
+			int indexR = (int) (Math.random() * tempStr.length());
+			results = results + tempStr.charAt(indexR); 
+			tempStr = tempStr.substring(0, indexR) + tempStr.substring(indexR + 1);
+		}
+		return results;
 	}
 }
