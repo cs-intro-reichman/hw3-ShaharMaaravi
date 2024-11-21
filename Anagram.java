@@ -28,22 +28,28 @@ public class Anagram {
 
 	// Returns true if the two given strings are anagrams, false otherwise.
 	public static boolean isAnagram(String str1, String str2) {
-		str1 = preProcess(str1); 
-		str2 = preProcess(str2); 
+		String ph1 = preProcess(str1); 
+		String ph2  = preProcess(str2); 
 		int l1 = str1.length(); 
 		int l2 = str2.length(); 
-		if(l1 == l2){ 
-			for(int i = 0; i < l1; i++){ 
-				char indexA = str1.charAt(i); 
-				for(int k = 0; k < l2; k++){ 
-					char indexB = str2.charAt(k);
-					if(indexA == indexB){ 
-						return true;
-					}
+		if(l1 != l2){
+			return false;
+		}
+		for(int i = 0; i < l1; i++){ 
+			char indexA = ph1.charAt(i); 
+			boolean exs = false; 
+			for(int k = 0; k < l2; k++){ 
+				char indexB = ph2.charAt(k);
+				if(indexA == indexB){ 
+					exs = true; 
+					ph2 = ph2.substring(0, k) + "#" + ph2.substring(k + 1); 
 				}
 			}
+			if (exs == false){ 
+				return false; 
+			}
 		}
-		return false;
+		return true;
 	}
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
